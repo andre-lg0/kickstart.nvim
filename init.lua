@@ -10,13 +10,13 @@ Kickstart.nvim is a template for your own configuration.
   The goal is that you can read every line of code, top-to-bottom, and understand
   what your configuration is doing.
 
-  Once you've done that, you should start exploring, configuring and tinkering to
   explore Neovim!
 
   If you don't know anything about Lua, I recommend taking some time to read through
   a guide. One possible example:
   - https://learnxinyminutes.com/docs/lua/
 
+  Once you've done that, you should start exploring, configuring and tinkering to
   And then you can explore or search through `:help lua-guide`
 
 
@@ -44,6 +44,7 @@ vim.g.maplocalleader = ' '
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
+--    
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -126,12 +127,13 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'auto',
         component_separators = '|',
         section_separators = '',
       },
     },
   },
+
 
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
@@ -174,7 +176,7 @@ require('lazy').setup({
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
   -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
+   require 'kickstart.plugins.debug',
 
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
@@ -228,15 +230,33 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- enable realitvenumber on lnes
+vim.o.relativenumber = true
+-- setting tabSize
+vim.o.shiftwidth = 4
+vim.o.softtabstop  = 4
+vim.o.colorcolumn = 60
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
+vim.keymap.set('i','<c-l>','<esc>la', {silent = true});
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- remap jk or kj to esc for escape of insert mode
+
+vim.keymap.set('i','jk','<Esc>',{silent  = true} )
+vim.keymap.set('i','kj','<Esc>',{silent  = true} )
+
+vim.keymap.set('i','<a-j>','<cmd>m+1<cr>')
+vim.keymap.set('i','<a-k>','<cmd>m-2<cr>')
+-- neotree basic mapping 
+  vim.keymap.set('n','<F3>',function ()
+    vim.cmd("Neotree toggle")
+  end,{desc = "open and close neotree"})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -406,9 +426,9 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
+   clangd = {},
   -- gopls = {},
-  -- pyright = {},
+   pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
@@ -443,7 +463,7 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
-
+vim.keymap.set('n','<leader>h', '<cmd>ClangdSwitchSourceHeader<cr>',{desc = "switch between cpp header and source"})
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
