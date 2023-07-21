@@ -153,9 +153,14 @@ require('lazy').setup({
     },
   },
 
+<<<<<<< HEAD
 
+  { -- Add indentation guides even on blank lines
+=======
   {
     -- Add indentation guides even on blank lines
+>>>>>>> 680e0857611988c6cefdec2aed291a3ed90bab3e
+    'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     opts = {
@@ -204,7 +209,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-   { import = 'custom.plugins' },
+  -- { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -482,10 +487,13 @@ mason_lspconfig.setup_handlers {
   end,
 }
 <<<<<<< HEAD
+vim.keymap.set('n','<leader>h', '<cmd>ClangdSwitchSourceHeader<cr>',{desc = "switch between cpp header and source"})
 -- nvim-cmp setup
+=======
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
+>>>>>>> 680e0857611988c6cefdec2aed291a3ed90bab3e
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
