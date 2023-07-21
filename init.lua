@@ -156,7 +156,7 @@ require('lazy').setup({
 
   {
     -- Add indentation guides even on blank lines
-    -- Enable `lukas-reineke/indent-blankline.nvim`
+    'lukas-reineke/indent-blankline.nvim',
     -- See `:help indent_blankline.txt`
     opts = {
       char = '┊',
@@ -481,8 +481,12 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
-<<<<<<< HEAD
+
+-- clangd header/source change keybind
+vim.keymap.set('n','<leader>h', '<cmd>ClangdSwitchSourceHeader<cr>',{desc = "switch between cpp header and source"})
 -- nvim-cmp setup
+
+
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
